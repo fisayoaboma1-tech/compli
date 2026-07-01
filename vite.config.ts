@@ -173,6 +173,9 @@ export default defineConfig(({ command, mode }) => {
       host: "::",
       port: 8080,
     },
+    build: {
+      outDir: "dist",
+    },
     define: envDefine,
     resolve: {
       alias: {
