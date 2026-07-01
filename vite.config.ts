@@ -35,7 +35,7 @@ function devClientErrorLogger() {
         "}",
       ].join("\n");
     },
-
+  
     configureServer(server: import("vite").ViteDevServer) {
       const origConsoleError = console.error;
       let forwarding = false;
