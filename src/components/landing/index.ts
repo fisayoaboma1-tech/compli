@@ -1,4 +1,8 @@
 export { Hero } from "./Hero";
+export { Services } from "./Services";
+export { WhyChooseUs } from "./WhyChooseUs";
+export { Contact } from "./ContactCTA";
+export { ContactDirect } from "./ContactDirect";
 export { Reviews } from "./Reviews";
 export { FinalCTA } from "./FinalCTA";
 export { Footer } from "./Footer";

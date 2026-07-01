@@ -1,7 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Hero,
+  Services,
+  WhyChooseUs,
   Reviews,
+  Contact,
+  ContactDirect,
   FinalCTA,
   Footer,
 } from "@/components/landing/index";
@@ -16,13 +20,41 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+function SectionBlendWrapper({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: 'url(/fae.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-      <Hero />
-      <Reviews />
-      <FinalCTA />
-      <Footer />
+      <SectionBlendWrapper className="section-fade-bottom">
+        <Hero />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top section-fade-bottom">
+        <Services />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top section-fade-bottom">
+        <WhyChooseUs />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top section-fade-bottom">
+        <Contact />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top section-fade-bottom">
+        <ContactDirect />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top section-fade-bottom">
+        <Reviews />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top">
+        <FinalCTA />
+      </SectionBlendWrapper>
+      <SectionBlendWrapper className="section-fade-top">
+        <Footer />
+      </SectionBlendWrapper>
     </div>
   );
 }

@@ -286,3 +286,105 @@
   transform: translateY(0) !important;
   filter: blur(0) !important;
 }
+
+/* Section blend transitions */
+.section-blend-top {
+  position: relative;
+}
+
+.section-blend-top::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, currentColor);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.section-blend-bottom {
+  position: relative;
+}
+
+.section-blend-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, transparent, currentColor);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Light section variant */
+.section-blend-light {
+  color: oklch(0.98 0.005 75);
+}
+
+.section-blend-light::before,
+.section-blend-light::after {
+  background: linear-gradient(to bottom, transparent, oklch(0.98 0.005 75));
+}
+
+.section-blend-light::after {
+  background: linear-gradient(to top, transparent, oklch(0.98 0.005 75));
+}
+
+/* Dark section variant */
+.section-blend-dark {
+  color: oklch(0.15 0.01 60);
+}
+
+.section-blend-dark::before,
+.section-blend-dark::after {
+  background: linear-gradient(to bottom, transparent, oklch(0.15 0.01 60));
+}
+
+.section-blend-dark::after {
+  background: linear-gradient(to top, transparent, oklch(0.15 0.01 60));
+}
+
+/* Subtle fade blend alternative */
+.section-fade-top {
+  position: relative;
+}
+
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.section-fade-bottom {
+  position: relative;
+}
+
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(255,255,255,0.3), transparent);
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.6;
+}
