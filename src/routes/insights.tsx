@@ -4,9 +4,6 @@ import {
   getHabits, getLogs, getStreak, getLongestStreak, getCompletionRate, isCompletedToday, saveHabits,
 } from "@/lib/habits";
 import type { Habit, HabitLog } from "@/lib/habits";
-import { CalendarHeatmap } from "@/components/CalendarHeatmap";
-import { BottomNav } from "@/components/BottomNav";
-import { AddHabitSheet } from "@/components/AddHabitSheet";
 import { Flame, Trophy, TrendingUp, BarChart3, Leaf } from "lucide-react";
 
 export const Route = createFileRoute("/insights")({
@@ -46,7 +43,6 @@ function Sparkline({ habitId, logs }: { habitId: string; logs: HabitLog[] }) {
 function InsightsPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [logs, setLogs] = useState<HabitLog[]>([]);
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,12 +50,6 @@ function InsightsPage() {
     setLogs(getLogs());
     setMounted(true);
   }, []);
-
-  const handleAdd = (habit: Habit) => {
-    const updated = [...habits, habit];
-    setHabits(updated);
-    saveHabits(updated);
-  };
 
   if (!mounted) return null;
 
@@ -156,7 +146,21 @@ function InsightsPage() {
 
                     <div>
                       <p className="text-[11px] text-muted-foreground mb-2 font-medium uppercase tracking-wider">Last 30 days</p>
-                      <CalendarHeatmap habitId={habit.id} logs={logs} color={habit.color} />
+                      <div className="flex flex-wrap gap-0.5">
+                        {Array.from({ length: 30 }, (_, i) => {
+                          const d = new Date();
+                          d.setDate(d.getDate() - (29 - i));
+                          const key = d.toISOString().split("T")[0];
+                          const done = logs.some((l) => l.habitId === habit.id && l.date === key);
+                          return (
+                            <div
+                              key={key}
+                              className="w-2.5 h-2.5 rounded-sm"
+                              style={{ backgroundColor: done ? habit.color : "var(--border)" }}
+                            />
+                          );
+                        })}
+                      </div>
                     </div>
 
                     <p className="text-[11px] text-muted-foreground">
@@ -170,8 +174,6 @@ function InsightsPage() {
         )}
       </div>
 
-      <BottomNav onAddClick={() => setSheetOpen(true)} />
-      <AddHabitSheet open={sheetOpen} onClose={() => setSheetOpen(false)} onAdd={handleAdd} />
     </div>
   );
 }

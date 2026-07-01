@@ -3,8 +3,6 @@ import { useState, useRef } from "react";
 import { Sun, Moon, Monitor, Trash2, Download, Upload, Leaf, ChevronRight, Bell, BellOff } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { getHabits, getLogs, saveHabits, saveLogs } from "@/lib/habits";
-import { BottomNav } from "@/components/BottomNav";
-import { AddHabitSheet } from "@/components/AddHabitSheet";
 import type { Habit } from "@/lib/habits";
 import { toast } from "sonner";
 import {
@@ -26,7 +24,6 @@ export const Route = createFileRoute("/settings")({
 
 function SettingsPage() {
   const { theme, setTheme } = useTheme();
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [notifPermission, setNotifPermission] = useState(getNotificationPermission());
@@ -78,11 +75,6 @@ function SettingsPage() {
     saveLogs([]);
     setConfirmClear(false);
     toast.success("All data cleared");
-  };
-
-  const handleAdd = (habit: Habit) => {
-    const updated = [...getHabits(), habit];
-    saveHabits(updated);
   };
 
   const handleNotificationToggle = async () => {
@@ -243,8 +235,6 @@ function SettingsPage() {
         </div>
       </div>
 
-      <BottomNav onAddClick={() => setSheetOpen(true)} />
-      <AddHabitSheet open={sheetOpen} onClose={() => setSheetOpen(false)} onAdd={handleAdd} />
     </div>
   );
 }
